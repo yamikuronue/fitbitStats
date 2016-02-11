@@ -2,9 +2,14 @@
 
 const express = require('express');
 var app = express();
+const exphbs  = require('express-handlebars');
 const session = require('express-session')
 const FitbitApiClient = require("fitbit-node");
 const config = require('./config.json');
+
+
+app.engine('handlebars', exphbs({defaultLayout: 'main'}));
+app.set('view engine', 'handlebars');
 
 let client = new FitbitApiClient(config.clientId, config.consumerSecret);
 app.use(session({
@@ -14,7 +19,11 @@ app.use(session({
 }));
 
 app.get('/', function (req, res) {
-  res.sendFile(__dirname + '/index.html');
+	let sess = req.session;
+	let data = {
+		"access_token": sess.access_token
+	}
+	res.render('home', data);
 });
 
 app.get('/auth', function (req, res) {
