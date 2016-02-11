@@ -1,8 +1,8 @@
 {{#if access_token}}
 	You are authenticated
-{{#else}}
+{{else}}
 	Click here to authenticate: 
 	<form method="get" action="/auth">
 	<input type="submit">
 	</form>
-{{#/if}}
+{{/if}}
