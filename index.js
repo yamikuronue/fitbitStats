@@ -11,6 +11,8 @@ const config = require('./config.json');
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
 
+app.use(express.static('static'));
+
 let client = new FitbitApiClient(config.clientId, config.consumerSecret);
 app.use(session({
 	secret: 'keyboard cat',
@@ -24,7 +26,8 @@ app.use(session({
 app.get('/', function (req, res) {
 	let sess = req.session;
 	let data = {
-		"access_token": sess.access_token
+		"access_token": sess.access_token,
+		"profile": sess.profile
 	};
 	res.render('home', data);
 });
@@ -36,7 +39,11 @@ app.get('/auth', function (req, res) {
 app.get('/callback', function (req, res) {
 	  client.getAccessToken(req.query.code, 'http://MyFitbitStats.no-ip.org/callback').then(function (result) {
 		req.session.access_token = result.access_token;
-		res.redirect('/');
+		client.get("/profile.json", result.access_token).then(function (results) {
+            req.session.profile = results;
+			res.redirect('/');
+        });
+
 	}).catch(function (error) {
 		res.send(error);
 	});

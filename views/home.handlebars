@@ -1,8 +1,19 @@
 {{#if access_token}}
-	You are authenticated
+	You are authenticated.
+	Profile:
+	<pre>
+	<code>
+	{{profile}}
+	</code>
+	</pre>
+	Options:
+	<ul>
+		<li><a href="/hr">Heart Rate</a></li>
+	</ul>
 {{else}}
 	Click here to authenticate: 
 	<form method="get" action="/auth">
 	<input type="submit">
 	</form>
 {{/if}}
+	
