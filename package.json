@@ -1,0 +1,19 @@
+{
+  "name": "fitbitstats",
+  "version": "1.0.0",
+  "description": "Fitbit stats in easy to follow chart format",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "fitbit",
+    "api"
+  ],
+  "author": "yamikuronue",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.13.4",
+    "fitbit-node": "^1.0.0"
+  }
+}
