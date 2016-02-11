@@ -25,7 +25,7 @@ app.get('/', function (req, res) {
 	let sess = req.session;
 	let data = {
 		"access_token": sess.access_token
-	}
+	};
 	res.render('home', data);
 });
 
@@ -36,9 +36,10 @@ app.get('/auth', function (req, res) {
 app.get('/callback', function (req, res) {
 	  client.getAccessToken(req.query.code, 'http://MyFitbitStats.no-ip.org/callback').then(function (result) {
 		req.session.access_token = result.access_token;
-		client.get("/profile.json", result.access_token).then(function (results) {
-			res.send(results[0]);
-		});
+			let data = {
+				"access_token": req.session.access_token
+			};
+			res.render('home', data);
 	}).catch(function (error) {
 		res.send(error);
 	});
