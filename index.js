@@ -15,7 +15,10 @@ let client = new FitbitApiClient(config.clientId, config.consumerSecret);
 app.use(session({
 	secret: 'keyboard cat',
 	resave: false,
-	saveUninitialized: true
+	saveUninitialized: true,
+	cookie: {
+		maxAge: 3600000
+	}
 }));
 
 app.get('/', function (req, res) {
