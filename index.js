@@ -36,10 +36,7 @@ app.get('/auth', function (req, res) {
 app.get('/callback', function (req, res) {
 	  client.getAccessToken(req.query.code, 'http://MyFitbitStats.no-ip.org/callback').then(function (result) {
 		req.session.access_token = result.access_token;
-			let data = {
-				"access_token": req.session.access_token
-			};
-			res.render('home', data);
+		res.redirect('/');
 	}).catch(function (error) {
 		res.send(error);
 	});
