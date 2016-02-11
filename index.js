@@ -6,15 +6,15 @@ const session = require('express-session')
 const FitbitApiClient = require("fitbit-node");
 const config = require('./config.json');
 
-let client = new FitbitApiClient(config.consumerKey, config.consumerSecret);
+let client = new FitbitApiClient(config.clientId, config.consumerSecret);
 app.use(session({
 	secret: 'keyboard cat',
 	resave: false,
 	saveUninitialized: true
-});
+}));
 
 app.get('/', function (req, res) {
-  res.sendFile('index.html');
+  res.sendFile(__dirname + '/index.html');
 });
 
 app.get('/auth', function (req, res) {
@@ -31,7 +31,7 @@ app.get('/callback', function (req, res) {
 	});
 });
 
-app.listen(3000, function () {
+app.listen(30666, function () {
   console.log('Example app listening on port 3000!');
 });
 
