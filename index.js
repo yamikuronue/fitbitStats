@@ -51,9 +51,13 @@ app.get('/hr', function (req, res) {
 		data.dataDaily = JSON.stringify(result[0]["activities-heart-intraday"].dataset);
 		res.render('hr', data);
 	})
-	.then(client.get("/activities/heart/date/today/7d.json", sess.access_token))
+	.then(() => { return client.get("/activities/heart/date/today/7d.json", sess.access_token)})
 	.then(function(result) {
-		data.dataWeekly = JSON.stringify(result[0]);
+		 if (result[0].errors) {
+                        Promise.reject(result[0].errors[0].message);
+                };
+
+		data.dataWeekly = JSON.stringify(result);
 	}).catch(function (error) {
 		res.send("ERROR:" + error.toString() + "<br>" +  error.stack);
 	});
