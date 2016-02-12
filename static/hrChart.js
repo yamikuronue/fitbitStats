@@ -31,3 +31,5 @@ datapoints.forEach(function (value, i) {
 		hrChart.datasets[0].points[i].pointColor = "darkred";
 	}
 });
+
+hrChart.update();
