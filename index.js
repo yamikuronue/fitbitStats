@@ -32,6 +32,20 @@ app.get('/', function (req, res) {
 	res.render('home', data);
 });
 
+app.get('/hr', function (req, res) {
+	let sess = req.session;
+	client.get("/activities/heart/date/today/1d/1min.json", sess.access_token).then(function (result) {
+		let data = {
+			"access_token": sess.access_token,
+			"profile": sess.profile,
+			"data" : JSON.stringify(result.activities-heart-intraday.dataset)
+		};
+		res.render('hr', data);
+	});
+	
+	
+});
+
 app.get('/auth', function (req, res) {
  res.redirect(client.getAuthorizeUrl('activity heartrate location nutrition profile settings sleep social weight', 'http://MyFitbitStats.no-ip.org/callback'));
 });
@@ -41,6 +55,8 @@ app.get('/callback', function (req, res) {
 		req.session.access_token = result.access_token;
 		client.get("/profile.json", result.access_token).then(function (results) {
             req.session.profile = JSON.stringify(results);
+			req.session.name = results[0].user.displayName;
+			req.session.avatar = results[0].user.avatar;
 			res.redirect('/');
         });
 
