@@ -24,10 +24,10 @@ var hrChart = new Chart(ctx).Line(data, {
     bezierCurve: false
 });
 
-datapoints.forEach(value, i) {
+datapoints.forEach(function (value, i) {
 	if (value > 100) {
 		hrChart.datasets[0].points[i].fillColor = "lightred";
 		hrChart.datasets[0].points[i].strokeColor = "red";
 		hrChart.datasets[0].points[i].pointColor = "darkred";
 	}
-}
+});
