@@ -41,6 +41,8 @@ app.get('/hr', function (req, res) {
 			"data" : JSON.stringify(result.activities-heart-intraday.dataset)
 		};
 		res.render('hr', data);
+	}).catch(function (error) {
+		res.send(error);
 	});
 	
 	
