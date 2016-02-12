@@ -1,5 +1,11 @@
-<canvas id="hrChart" width="1200" height="600"></canvas>
+<h1>My Heart Rate</h1>
+<h2>Today</h2>
+<canvas id="hrTodayChart" width="1200" height="600"></canvas>
 
-<script>window.hrData = {{{data}}}</script>
+<h2>This Week</h2>
+<canvas id="hrWeekChart" width="1200" height="600"></canvas>
+
+<script>window.hrTodayData = {{{dataDaily}}}</script>
+<script>window.hrWeekData = {{{dataWeekly}}}</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
 <script src="/hrChart.js"></script>

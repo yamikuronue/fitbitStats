@@ -34,6 +34,10 @@ app.get('/', function (req, res) {
 
 app.get('/hr', function (req, res) {
 	let sess = req.session;
+	let data = {
+			"access_token": sess.access_token,
+			"profile": sess.profile
+	};
 
 	if (!sess.access_token) {
 		res.redirect("/");
@@ -44,16 +48,15 @@ app.get('/hr', function (req, res) {
 			Promise.reject(result[0].errors[0].message);
 		};
 
-		let data = {
-			"access_token": sess.access_token,
-			"profile": sess.profile,
-			"data" : JSON.stringify(result[0]["activities-heart-intraday"].dataset)
-		};
+		data.dataDaily = JSON.stringify(result[0]["activities-heart-intraday"].dataset);
 		res.render('hr', data);
+	})
+	.then(client.get("/activities/heart/date/today/7d.json", sess.access_token))
+	.then(function(result) {
+		data.dataWeekly = JSON.stringify(result[0]);
 	}).catch(function (error) {
 		res.send("ERROR:" + error.toString() + "<br>" +  error.stack);
 	});
-	
 	
 });
 
