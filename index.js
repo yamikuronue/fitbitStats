@@ -34,15 +34,24 @@ app.get('/', function (req, res) {
 
 app.get('/hr', function (req, res) {
 	let sess = req.session;
+
+	if (!sess.access_token) {
+		res.redirect("/");
+		return;
+	}
 	client.get("/activities/heart/date/today/1d/1min.json", sess.access_token).then(function (result) {
+		if (result[0].errors) {
+			Promise.reject(result[0].errors[0].message);
+		};
+
 		let data = {
 			"access_token": sess.access_token,
 			"profile": sess.profile,
-			"data" : JSON.stringify(result.activities-heart-intraday.dataset)
+			"data" : JSON.stringify(result[0]["activities-heart-intraday"].dataset)
 		};
 		res.render('hr', data);
 	}).catch(function (error) {
-		res.send(error);
+		res.send("ERROR:" + error.toString() + "<br>" +  error.stack);
 	});
 	
 	
