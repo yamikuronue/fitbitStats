@@ -52,9 +52,9 @@ app.get('/hr', function (req, res) {
 	})
 	.then(() => { return client.get("/activities/heart/date/today/7d.json", sess.access_token)})
 	.then(function(result) {
-		 if (result[0].errors) {
-                        Promise.reject(result[0].errors[0].message);
-                };
+		if (result[0].errors) {
+				Promise.reject(result[0].errors[0].message);
+		};
 
 		data.dataWeekly = JSON.stringify(result[0]);
 		res.render('hr',data);

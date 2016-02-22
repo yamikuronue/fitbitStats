@@ -46,10 +46,10 @@ $(document).ready(function() {
 		return (index % 10 == 0);
 	}
 
-	var datapoints = window.hrWeekData.filter(filterItems).map(function(value) { return value.value });
+	var datapoints = window.hrWeekData.filter(filterItems).map(function(value) { return value.value.restingHeartRate });
 
 	var data = {
-		labels: window.hrWeekData.filter(filterItems).map(function(value) { return value.time }),
+		labels: window.hrWeekData.filter(filterItems).map(function(value) { return value.dateTime }),
 		datasets: [
 			{
 				fillColor: "lightgreen",
