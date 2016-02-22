@@ -49,7 +49,6 @@ app.get('/hr', function (req, res) {
 		};
 
 		data.dataDaily = JSON.stringify(result[0]["activities-heart-intraday"].dataset);
-		res.render('hr', data);
 	})
 	.then(() => { return client.get("/activities/heart/date/today/7d.json", sess.access_token)})
 	.then(function(result) {
@@ -57,7 +56,8 @@ app.get('/hr', function (req, res) {
                         Promise.reject(result[0].errors[0].message);
                 };
 
-		data.dataWeekly = JSON.stringify(result);
+		data.dataWeekly = JSON.stringify(result[0]);
+		res.render('hr',data);
 	}).catch(function (error) {
 		res.send("ERROR:" + error.toString() + "<br>" +  error.stack);
 	});
