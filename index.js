@@ -56,7 +56,7 @@ app.get('/hr', function (req, res) {
 				Promise.reject(result[0].errors[0].message);
 		};
 
-		data.dataWeekly = JSON.stringify(result[0]);
+		data.dataWeekly = JSON.stringify(result[0]['activities-heart']);
 		res.render('hr',data);
 	}).catch(function (error) {
 		res.send("ERROR:" + error.toString() + "<br>" +  error.stack);
