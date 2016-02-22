@@ -42,14 +42,11 @@ $(document).ready(function() {
 /*Week*/
 $(document).ready(function() { 
 	var ctx = document.getElementById("hrWeekChart").getContext("2d");
-	function filterItems(value, index) {
-		return (index % 10 == 0);
-	}
 
-	var datapoints = window.hrWeekData.filter(filterItems).map(function(value) { return value.value.restingHeartRate });
+	var datapoints = window.hrWeekData.map(function(value) { return value.value.restingHeartRate });
 
 	var data = {
-		labels: window.hrWeekData.filter(filterItems).map(function(value) { return value.dateTime }),
+		labels: window.hrWeekData.map(function(value) { return value.dateTime }),
 		datasets: [
 			{
 				fillColor: "lightgreen",
