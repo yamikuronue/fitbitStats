@@ -57,8 +57,19 @@ app.get('/hr', function (req, res) {
 		};
 
 		data.dataWeekly = JSON.stringify(result[0]['activities-heart']);
+	})
+	.then(() => { return client.get("/activities/list.json", sess.access_token)})
+	.then(function(result) {
+		if (result[0].errors) {
+				Promise.reject(result[0].errors[0].message);
+		};
+
+		data.activitiesList = JSON.stringify(result[0]['activities']);
+	})
+	.then( () => {
 		res.render('hr',data);
-	}).catch(function (error) {
+	})
+	.catch(function (error) {
 		res.send("ERROR:" + error.toString() + "<br>" +  error.stack);
 	});
 	
